@@ -63,3 +63,5 @@ searchItems('fish')
   .then(()=>paginateProducts(2))
   .then(()=>addedAfter(2))
   .then(()=>categoryTotal());
+
+// dfknmsdf
