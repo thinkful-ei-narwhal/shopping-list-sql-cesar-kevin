@@ -22,3 +22,12 @@ function paginateProducts(page) {
 }
   
 paginateProducts(2);
+
+knexInstance
+  .select('category')
+  .sum('price')
+  .from('shopping_list')
+  .groupBy('category')
+  .then(result => {
+    console.log(result);
+  });
