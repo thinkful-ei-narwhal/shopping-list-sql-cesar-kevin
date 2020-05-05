@@ -10,8 +10,8 @@ console.log('knex and driver installed correctly');
 
 
 
-function searchIteam(searchTerm) {
-  knexInstance
+function searchItems(searchTerm) {
+  return knexInstance
     .select('name')
     .from('shopping_list')
     .where('name', 'ILIKE', `%${searchTerm}%`)
@@ -19,12 +19,11 @@ function searchIteam(searchTerm) {
       console.log(results);
     });
 }
-searchIteam('fish');
-  
+
 function paginateProducts(page) {
   const productsPerPage = 6;
   const offset = productsPerPage * (page - 1);
-  knexInstance
+  return knexInstance
     .select('item_id', 'name', 'price', 'category')
     .from('shopping_list')
     .limit(productsPerPage)
@@ -36,7 +35,7 @@ function paginateProducts(page) {
 
 
 function categoryTotal() {
-  knexInstance
+  return knexInstance
     .select('category')
     .sum('price')
     .from('shopping_list')
@@ -46,6 +45,6 @@ function categoryTotal() {
     });
 }
 
-searchIteam('fish');
-paginateProducts(2);
-categoryTotal();
+searchItems('fish')
+  .then(()=>paginateProducts(2))
+  .then(()=>categoryTotal());
