@@ -33,6 +33,20 @@ function paginateProducts(page) {
     });
 } 
 
+function addedAfter(daysAgo) {
+
+  knexInstance
+    .from('shopping_list')
+    .select('item_id', 'name', 'price', 'category', 'date_added')
+    .where(
+      'date_added',
+      '>',
+      knexInstance.raw('now() - \'?? days\':: INTERVAL', daysAgo)
+    )
+    .then(results => {
+      console.log('addedDaysAgo:', results);
+    });
+}
 
 function categoryTotal() {
   return knexInstance
@@ -47,4 +61,5 @@ function categoryTotal() {
 
 searchItems('fish')
   .then(()=>paginateProducts(2))
+  .then(()=>addedAfter(2))
   .then(()=>categoryTotal());
