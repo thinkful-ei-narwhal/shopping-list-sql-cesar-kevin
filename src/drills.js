@@ -8,8 +8,18 @@ const knexInstance = knex({
 
 console.log('knex and driver installed correctly');
 
+const searchTerm = 'fish';
+
+knexInstance
+  .from('shopping_list')
+  .select('name')
+  .where('name', 'ILIKE', `%${searchTerm}%`)
+  .then(results => {
+    console.log(results);
+  });
+  
 function paginateProducts(page) {
-  const productsPerPage = 6 ;
+  const productsPerPage = 6;
   const offset = productsPerPage * (page - 1);
   knexInstance
     .select('item_id', 'name', 'price', 'category')
