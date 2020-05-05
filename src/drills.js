@@ -7,3 +7,13 @@ const knexInstance = knex({
 });
 
 console.log('knex and driver installed correctly');
+
+const searchTerm = 'fish';
+
+knexInstance
+  .from('shopping_list')
+  .select('name')
+  .where('name', 'ILIKE', `%${searchTerm}%`)
+  .then(results => {
+    console.log(results);
+  });
