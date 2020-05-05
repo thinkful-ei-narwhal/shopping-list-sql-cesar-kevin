@@ -8,15 +8,18 @@ const knexInstance = knex({
 
 console.log('knex and driver installed correctly');
 
-const searchTerm = 'fish';
 
-knexInstance
-  .from('shopping_list')
-  .select('name')
-  .where('name', 'ILIKE', `%${searchTerm}%`)
-  .then(results => {
-    console.log(results);
-  });
+
+function searchIteam(searchTerm) {
+  knexInstance
+    .select('name')
+    .from('shopping_list')
+    .where('name', 'ILIKE', `%${searchTerm}%`)
+    .then(results => {
+      console.log(results);
+    });
+}
+searchIteam('fish');
   
 function paginateProducts(page) {
   const productsPerPage = 6;
@@ -29,15 +32,20 @@ function paginateProducts(page) {
     .then(result => {
       console.log(result);
     });
-}
-  
-paginateProducts(2);
+} 
 
-knexInstance
-  .select('category')
-  .sum('price')
-  .from('shopping_list')
-  .groupBy('category')
-  .then(result => {
-    console.log(result);
-  });
+
+function categoryTotal() {
+  knexInstance
+    .select('category')
+    .sum('price')
+    .from('shopping_list')
+    .groupBy('category')
+    .then(result => {
+      console.log(result);
+    });
+}
+
+searchIteam('fish');
+paginateProducts(2);
+categoryTotal();
