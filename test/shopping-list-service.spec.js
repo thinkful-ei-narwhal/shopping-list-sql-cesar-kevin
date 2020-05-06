@@ -52,20 +52,20 @@ describe('shopping-list-service object',() =>{
         .insert(testList)
     );
 
-    it(`getAllShoppingList() resolves all articles from 'shopping_list' table`,()=>{
+    it('getAllShoppingList() resolves all articles from \'shopping_list\' table',()=>{
       return ShoppingListService
         .getAllShoppingList(db)
         .then(items => expect(items).to.eql(testList));
     });
 
-    it(`insertShoppingList() inserts a new item and resolves the new item with an ID`, () => {
+    it('insertShoppingList() inserts a new item and resolves the new item with an ID', () => {
       const newItem = {
-        name:'Fish tricks',
+        name:'Fish sticks',
         price: '13.10',
         category:'Main',
         checked: false,
         date_added: new Date('2029-01-22T16:28:32.615Z'),
-      }
+      };
 
       const expectedNewItem = {
         item_id: 2,
@@ -74,35 +74,35 @@ describe('shopping-list-service object',() =>{
         category: newItem.category,
         checked: newItem.checked,
         date_added: newItem.date_added
-      }
+      };
 
-      const expected = [...testList, expectedNewItem]
+      const expected = [...testList, expectedNewItem];
 
       return ShoppingListService.insertShoppingList(db, newItem)
         .then(actual => {
-          expect(actual).to.eql(expected)
-        })
-    })
+          expect(actual).to.eql(expected);
+        });
+    });
   });
 
 
-  context(`Given no data`, () => {
-    it(`getAllShoppingList() resolves an empty array`, () => {
+  context('Given no data', () => {
+    it('getAllShoppingList() resolves an empty array', () => {
       return ShoppingListService
         .getAllShoppingList(db)
         .then(actual => {
-          expect(actual).to.eql([])
-        })
-    })
+          expect(actual).to.eql([]);
+        });
+    });
 
-    it(`insertShoppingList() inserts a new item and resolves the new item with an ID`, () => {
+    it('insertShoppingList() inserts a new item and resolves the new item with an ID', () => {
       const newItem = {
         name:'Fish tricks',
         price: '13.10',
         category:'Main',
         checked: false,
         date_added: new Date('2029-01-22T16:28:32.615Z'),
-      }
+      };
 
       return ShoppingListService.insertShoppingList(db, newItem)
         .then(actual => {
@@ -113,10 +113,10 @@ describe('shopping-list-service object',() =>{
             category: newItem.category,
             checked: newItem.checked,
             date_added: newItem.date_added
-          })
-        })
-    })
-  })
+          });
+        });
+    });
+  });
 
 
 
