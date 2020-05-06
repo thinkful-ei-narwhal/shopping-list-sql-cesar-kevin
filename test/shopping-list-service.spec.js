@@ -63,6 +63,7 @@ describe('shopping-list-service object',() =>{
 
 
   });
+  //// getAllShoppingList() finished
 
 
 
