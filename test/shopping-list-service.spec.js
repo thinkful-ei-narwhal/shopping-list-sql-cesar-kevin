@@ -45,24 +45,42 @@ describe('shopping-list-service object',() =>{
 
   after(() => db.destroy());
 
-  describe('getAllShoppingList()',() => {
-
  
-    context('with data present', () => {
-      beforeEach('insert test list', () =>
-        db('shopping_list')
-          .insert(testList)
-      );
+  context('with data present', () => {
+    beforeEach('insert test list', () =>
+      db('shopping_list')
+        .insert(testList)
+    );
 
-      it('return all test list',()=>{
-        return ShoppingListService
-          .getAllShoppingList(db)
-          .then(items => expect(items).to.eql(testList));
-      });
+    it(`getAllArticles() resolves all articles from 'shopping_list' table`,()=>{
+      return ShoppingListService
+        .getAllShoppingList(db)
+        .then(items => expect(items).to.eql(testList));
     });
-
-
   });
+
+
+  context(`Given no data`, () => {
+    it(`getAllShoppingList() resolves an empty array`, () => {
+      return ShoppingListService
+        .getAllShoppingList(db)
+        .then(actual => {
+          expect(actual).to.eql([])
+        })
+    })
+
+    it(`insertShoppingList() inserts a new item and resolves the new item with an ID`, () => {
+      const newItem = {
+        name:'Fish tricks',
+        price: '13.10',
+        category:'Main',
+        checked: false,
+        date_added: new Date('2029-01-22T16:28:32.615Z'),
+      }
+
+      return ShoppingListService.insertShoppingList(db, newItem)
+    })
+  })
   //// getAllShoppingList() finished
 
 
