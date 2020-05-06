@@ -11,22 +11,22 @@ const ShoppingListService = {
       .then(rows => rows[0]);
   },
   
-  getById(db, id) {
+  getById(db, item_id) {
     return db('shopping_list')
       .select('*')
-      .where({ id })
+      .where({ item_id })
       .first();
   },
   
-  deleteById(db, id) {
+  deleteById(db, item_id) {
     return db('shopping_list')
-      .where({ id })
+      .where({ item_id })
       .delete();
   },
   
-  updateById(db, id, data) {
+  updateById(db, item_id, data) {
     return db('shopping_list')
-      .where({ id })
+      .where({ item_id })
       .update(data);
   }
 };

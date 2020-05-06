@@ -58,17 +58,43 @@ describe('shopping-list-service object',() =>{
         .then(items => expect(items).to.eql(testList));
     });
 
-  //   it('deleteById() removes an article by id from \'shopping_list\' table', () => {
-  //     const itemId = 3;
-  //     return ShoppingListService.deleteById(db, articleId)
-  //       .then(() => ShoppingListService.deleteById(db))
-  //       .then(allArticles => {
-  //       // copy the test articles array without the "deleted" article
-  //         const expected = testList.filter(article => article.id !== articleId);
-  //         expect(allArticles).to.eql(expected);
-  //       });
-  //   });
-  // });
+    it('deleteById() removes an article by id from \'shopping_list\' table', () => {
+      const itemId = 2;
+      return ShoppingListService.deleteById(db, itemId)
+        .then(() => ShoppingListService.getAllShoppingList(db))
+        .then(allItems => {
+          const expected = testList.filter(item => item.item_id !== itemId);
+          expect(allItems).to.eql(expected);
+        });
+    });
+
+    it('getById() return array',()=>{
+      return ShoppingListService
+        .getById(db,2)
+        .then(actual =>{
+          expect(actual).to.eql(testList[1]);
+        });
+    });
+
+    it('updateById() return array',()=>{
+      const expectedUpdate = {
+        name:'Fish tricks',
+        price: '25.10',
+        category:'Main',
+        checked: false,
+        date_added: new Date('2029-01-22T16:28:32.615Z'),
+        item_id: 1
+      };
+
+      return ShoppingListService
+        .updateById(db, 1 ,{price: '25.10'})
+        .then(() => ShoppingListService.getAllShoppingList(db))
+        .then(actual =>{
+          expect(actual[2]).to.eql(expectedUpdate);
+        });
+    });
+
+  });
 
 
   context('Given no data', () => {
